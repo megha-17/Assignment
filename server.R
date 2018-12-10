@@ -160,6 +160,32 @@ shinyServer(function(input, output) {
 
           head(coc_gen)
           
+          
+          
+          # Coocurence Graph
+          # Visualising top-30 co-occurrences using a network plot
+          library(igraph)
+          library(ggraph)
+          library(ggplot2)
+          
+          wordnetwork <- head(nokia_cooc, 50)
+          wordnetwork <- igraph::graph_from_data_frame(wordnetwork) # needs edgelist in first 2 colms.
+          
+          ggraph(wordnetwork, layout = "fr") +  
+          
+          geom_edge_link(aes(width = cooc, edge_alpha = cooc), edge_colour = "orange") +  
+          geom_node_text(aes(label = name), col = "darkgreen", size = 4) +
+          
+          theme_graph(base_family = "Arial Narrow") +  
+          theme(legend.position = "none") +
+          
+          labs(title = "Cooccurrences within 3 words distance", subtitle = "Nouns & Adjective")
+          
+          
+          
+          
+          
+          
       } else if (input$select == 3){
         spanish_model = udpipe_load_model("./spanish-ud-2.0-170801.udpipe")
         x <- udpipe_annotate(spanish_model, x = nokia) #%>% as.data.frame() %>% head()
