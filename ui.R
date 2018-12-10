@@ -25,17 +25,17 @@ shinyUI(fluidPage(
                   "text/textdocument,text/plain",
                   ".txt")
       ),
-      textOutput("choose"),
-      hr(),           
-      
-      
-      fileInput("file1", "Upload udpipe Model",
-                accept = c(
-                  "text/txt",
-                  "text/textdocument,text/plain",
-                  ".txt")
-      ),
       hr(),
+      
+      # Copy the line below to make a select box 
+      selectInput("select", label = h3("Select the Udpipe Model"), 
+                  choices = list("English" = 1, "Hindi" = 2, "Spanish" = 3, "Sanish" = 4, "Spanish" = 5), 
+                  selected = 1),
+      hr(),
+      #verbatimTextOutput("udpipevalue"),
+      #fluidRow(column(3, verbatimTextOutput("udpipevalue"))),           
+      
+     
       # SELECTING THE CHECKBOX
       # Copy the chunk below to make a group of checkboxes
       checkboxGroupInput("checkGroup", label = h3("Select Part of Speech"), 
@@ -54,12 +54,18 @@ shinyUI(fluidPage(
                   tabPanel("Overview",
                            h4(p("Data input")),
                            p("This app supports only text file i.e. (.txt file)",align="justify"),
-                           p("After uploading the file, go to the next tab for view the cooccurence graph.")),
+                           p("After uploading the file, Select the UDPipe model."),
+                           p("By Default English Model would be selected, end user can select as their wish"),
+                           p("Then select the Part of Speech"),
+                           p("Now traverse through the tabs within the application")
+                           ),
                   tabPanel("Co Occurence graph", 
                            plotOutput("plot1", click = "plot_click"),
                            verbatimTextOutput("info")),
                   tabPanel("Data",
-                           verbatimTextOutput("textdata"))
+                           verbatimTextOutput("textdata")),
+                  tabPanel("Model",
+                           verbatimTextOutput("udpipevalue"))
                   
                   
       ) # end of tabsetPanel
