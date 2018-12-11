@@ -29,7 +29,7 @@ shinyUI(fluidPage(
       
       # Copy the line below to make a select box 
       selectInput("select", label = h3("Select the Udpipe Model"), 
-                  choices = list("English" = 1, "Hindi" = 2, "Spanish" = 3, "Sanish" = 4, "Spanish" = 5), 
+                  choices = list("English" = 1, "Hindi" = 2, "Spanish" = 3), 
                   selected = 1),
       hr(),
       #verbatimTextOutput("udpipevalue"),
@@ -59,13 +59,13 @@ shinyUI(fluidPage(
                            p("Then select the Part of Speech"),
                            p("Now traverse through the tabs within the application")
                            ),
-                  tabPanel("Co Occurence graph", 
-                           plotOutput("plot1", click = "plot_click"),
-                           verbatimTextOutput("info")),
                   tabPanel("Data",
                            verbatimTextOutput("textdata")),
                   tabPanel("Model",
-                           verbatimTextOutput("udpipevalue"))
+                           verbatimTextOutput("udpipevalue")),
+                  tabPanel("Co Occurence graph", 
+                           plotOutput("plot1"),
+                           verbatimTextOutput("info"))
                   
                   
       ) # end of tabsetPanel
